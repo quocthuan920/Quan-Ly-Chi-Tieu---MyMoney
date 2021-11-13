@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyMoney.Views.SetupAssistant.CategoryIntroductionPage"
+             Visual="Material"
+
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible = "False"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDark}, Light={StaticResource BackgroundColorLight}}"             xmlns:resources="clr-namespace:MyMoney.Application.Resources" >
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="#5EFBA0">
+            <Grid
+                Padding="15"
+                IsClippedToBounds="False"
+                RowDefinitions="45, 40, Auto, Auto, 40, Auto, *, 40">
+
+                <Label Style="{StaticResource TextHeadline}"
+                       Text="{x:Static resources:Strings.CategoriesTitle}"
+                       HorizontalOptions="Center"/>
+
+                <Label Grid.Row="2" FontSize="20"
+                       Text="{x:Static resources:Strings.CategorieIntroductionText}" />
+                <Image Grid.Row="3"
+                       Source="@drawable/category_setup_page.png"
+                       HeightRequest="250" 
+                       WidthRequest="250"
+                       />
+                <Button  Grid.Row="4"
+                         Text="{x:Static resources:Strings.CreateCategoryNowLabel}"
+                        Command="{Binding GoToAddCategoryCommand}"/>
+
+                <Label Grid.Row="5" FontSize="20"
+                       Text="{x:Static resources:Strings.PaymentIntroductionText}" />
+
+                <Grid Grid.Row="7" ColumnDefinitions="*, 2*">
+                    <Button  Grid.Column="0"
+                             Text="{x:Static resources:Strings.BackLabel}"
+                             Command="{Binding BackCommand}" />
+
+                    <Button Grid.Column="1"
+                            Text="{x:Static resources:Strings.NextLabel}"
+                            Command="{Binding NextStepCommand}" />
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

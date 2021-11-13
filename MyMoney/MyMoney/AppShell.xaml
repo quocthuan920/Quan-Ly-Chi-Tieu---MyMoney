@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="MyMoney.AppShell"
+       xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:dashboard="clr-namespace:MyMoney.Views.Dashboard"
+       xmlns:resources="clr-namespace:MyMoney.Application.Resources"
+       xmlns:category="clr-namespace:MyMoney.Views.Categories"
+       xmlns:accounts="clr-namespace:MyMoney.Views.Accounts"
+       xmlns:backup="clr-namespace:MyMoney.Views.Backup"
+       xmlns:statistic="clr-namespace:MyMoney.Views.Statistics"
+       xmlns:settings="clr-namespace:MyMoney.Views.Settings"
+       xmlns:setup="clr-namespace:MyMoney.Views.SetupAssistant"
+       xmlns:converter="clr-namespace:MyMoney.Converter"
+       Title="MyMoney"
+       mc:Ignorable="d"
+       FlyoutHeaderBehavior="CollapseOnScroll">
+
+    <Shell.Resources>
+        <Style x:Key="BaseStyle"
+       TargetType="Element">
+            <Setter Property="Shell.TabBarBackgroundColor"
+            Value="#0095FF" />
+            <Setter Property="Shell.TabBarTitleColor"
+            Value="White" />
+            <Setter Property="Shell.TabBarUnselectedColor"
+            Value="#E4E6E8" />
+        </Style>
+    </Shell.Resources>
+
+    <Shell.ItemTemplate>
+        <DataTemplate >
+            <Grid Style="{StaticResource FloutItemStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*" />
+                    <ColumnDefinition Width="0.7*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding FlyoutIcon}"
+                       Margin="5"
+                       HeightRequest="30" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       VerticalTextAlignment="Center" 
+                       FontSize="25"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <FlyoutItem Title="{x:Static resources:Strings.DashboardTitle}"
+                FlyoutIcon="@drawable/ic_dashboard.png" >
+        <Tab Title="{x:Static resources:Strings.DashboardTitle}"
+             Icon="@drawable/ic_dashboard.png"
+             Style="{StaticResource BaseStyle}">
+            <ShellContent >
+                <dashboard:DashboardPage />
+            </ShellContent>
+        </Tab>
+        <Tab Title="Biểu đồ"
+             Icon="@drawable/pie_chart_white.png"
+             Style="{StaticResource BaseStyle}">
+            <ShellContent >
+                <statistic:StatisticCategorySpreadingPage />
+            </ShellContent>
+        </Tab>
+        <Tab Title="{x:Static resources:Strings.StatisticsTitle}"
+             Icon="{AppThemeBinding Dark=record_white, Light=record_black}"
+             Style="{StaticResource BaseStyle}">
+            <ShellContent >
+                <statistic:StatisticCategorySummaryPage />
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="{x:Static resources:Strings.AccountsTitle}"
+                FlyoutIcon="@drawable/ic_wallet_black.png">
+        <Tab>
+            <ShellContent>
+                <accounts:AccountListPage />
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static resources:Strings.CategoriesTitle}"
+                FlyoutIcon="@drawable/ic_tag.png" >
+        <Tab>
+            <ShellContent>
+                <category:CategoryListPage />
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="{x:Static resources:Strings.BackupTitle}"
+                FlyoutIcon="@drawable/ic_cloud_backup.png" >
+        <Tab>
+            <ShellContent>
+                <backup:BackupPage />
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="{x:Static resources:Strings.SettingsTitle}"
+                FlyoutIcon="@drawable/ic_settings.png">
+        <Tab>
+            <ShellContent>
+                <settings:SettingsPage />
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+
+
+    <ShellContent Route="WelcomePage" Shell.FlyoutBehavior="Disabled" ContentTemplate="{DataTemplate setup:WelcomePage}" />
+
+</Shell>

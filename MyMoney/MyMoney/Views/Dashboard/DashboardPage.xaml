@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyMoney.Views.Dashboard.DashboardPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:MyMoney.Application.Resources"
+    xmlns:theme="clr-namespace:MyMoney"
+    xmlns:viewmodels="clr-namespace:MyMoney.ViewModels.Dashboard"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:converter="clr-namespace:MyMoney.Converter"
+    xmlns:accounts="clr-namespace:MyMoney.Ui.ViewModels.Accounts"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <converter:AmountFormatConverter x:Key="AmountFormatConverter" />
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <Grid>
+            <Button
+                Margin="0,0,5,0"
+                Padding="0"
+                BorderWidth="0"
+                Command="{Binding GoToAddPaymentCommand}"
+                FontFamily="FontAwesome"
+                FontSize="30"
+                HeightRequest="44"
+                HorizontalOptions="End"
+                Style="{StaticResource PrimaryButton}"
+                Text="+"
+                TextColor="White"
+                VerticalOptions="Center"
+                WidthRequest="66" />
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid
+                Padding="15"
+                IsClippedToBounds="False"
+                RowDefinitions="40, 90, 160, 140,*">
+
+                <Label
+                    Grid.Row="0"
+                    Style="{StaticResource TextHeadline}"
+                    Text="{x:Static resources:Strings.AssetsLabel}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+
+                <!--  Assets card  -->
+                <yummy:PancakeView
+                    Grid.Row="1"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource CardBackgroundDark},
+                                                      Light={StaticResource CardBackgroundLight}}"
+                    CornerRadius="10"
+                    HeightRequest="120"
+                    HorizontalOptions="FillAndExpand">
+
+                    <yummy:PancakeView.Shadow>
+                        <yummy:DropShadow />
+                    </yummy:PancakeView.Shadow>
+
+                    <Grid>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToAccountsCommand}" />
+                        </Grid.GestureRecognizers>
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontFamily="Product"
+                            FontSize="22"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Assets, Converter={StaticResource AmountFormatConverter}}"
+                            VerticalTextAlignment="Center" />
+
+                        
+                    </Grid>
+                </yummy:PancakeView>
+
+                <!--  Accounts  -->
+                <StackLayout Grid.Row="2" VerticalOptions="Start">
+
+                    <CollectionView
+                        x:Name="AccountCollectionView"
+                        EmptyView="{x:Static resources:Strings.NoAccountsMessage}"
+                        ItemsLayout="HorizontalList"
+                        ItemsSource="{Binding Accounts}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="accounts:AccountViewModel">
+                                <Grid Padding="10,15,10,15" WidthRequest="180">
+
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.GoToTransactionListCommand, Source={x:Reference Name=AccountCollectionView}}" CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+
+
+                                    <yummy:PancakeView
+                                        BackgroundColor="{AppThemeBinding Dark={StaticResource CardBackgroundDark},
+                                                                          Light={StaticResource CardBackgroundLight}}"
+                                        CornerRadius="10"
+                                        HeightRequest="80"
+                                        HorizontalOptions="FillAndExpand">
+
+                                        <yummy:PancakeView.Shadow>
+                                            <yummy:DropShadow />
+                                        </yummy:PancakeView.Shadow>
+
+                                        <Grid>
+                                            <Label
+                                                Margin="10,2,0,0"
+                                                HorizontalTextAlignment="Start"
+                                                Style="{StaticResource TextHead}"
+                                                Text="{Binding Name}"
+                                                VerticalTextAlignment="Start" />
+
+                                            <Label
+                                                Margin="0,0,6,2"
+                                                FontFamily="Product"
+                                                FontSize="20"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding CurrentBalance, Converter={StaticResource AmountFormatConverter}}"
+                                                VerticalTextAlignment="Center" />
+
+                                            
+                                        </Grid>
+                                    </yummy:PancakeView>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                    <Button
+                        Margin="5,12,5,0"
+                        HeightRequest="40"
+                        BackgroundColor="{StaticResource BackgroundColorLight}"
+                        Command="{Binding GoToAccountsCommand}"
+                        HorizontalOptions="End"
+                        Style="{StaticResource LinkButton}"
+                        Text="{x:Static resources:Strings.GoToAccountsLabel}" />
+                </StackLayout>
+
+                <!--  Income / Expenses  -->
+                <StackLayout Grid.Row="3" VerticalOptions="Start">
+                    <Label
+                        Style="{StaticResource TextTitle}"
+                        Text="{x:Static resources:Strings.ThisMonth}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+
+                    <Grid ColumnDefinitions="*,*">
+
+                        <yummy:PancakeView
+                            Grid.Column="0"
+                            BackgroundColor="#4AD295"
+                            CornerRadius="10"
+                            HeightRequest="80"
+                            HorizontalOptions="FillAndExpand">
+                            <yummy:PancakeView.Shadow>
+                                <yummy:DropShadow />
+                            </yummy:PancakeView.Shadow>
+                            <Grid>
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="Product"
+                                    FontSize="18"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding MonthlyIncomes, StringFormat='+ {0:C}', Converter={StaticResource AmountFormatConverter}}"
+                                    VerticalTextAlignment="Center" />
+                            </Grid>
+                        </yummy:PancakeView>
+
+                        <yummy:PancakeView
+                            Grid.Column="1"
+                            BackgroundColor="#ff9797"
+                            CornerRadius="10"
+                            HeightRequest="80"
+                            HorizontalOptions="FillAndExpand">
+                            <yummy:PancakeView.Shadow>
+                                <yummy:DropShadow />
+                            </yummy:PancakeView.Shadow>
+                            <Grid>
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="Product"
+                                    FontSize="18"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding MonthlyExpenses, StringFormat='- {0:C}', Converter={StaticResource AmountFormatConverter}}"
+                                    VerticalTextAlignment="Center" />
+                            </Grid>
+                        </yummy:PancakeView>
+                    </Grid>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

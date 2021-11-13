@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:MyMoney.Converter"
+             x:Class="MyMoney.Controls.FlyoutHeader">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter x:Key="Inverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Grid BackgroundColor="#10B2FA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+
+
+        <Image Grid.Row="0"
+               IsVisible="{Binding IsLoggedIn, Converter={StaticResource Inverter}}"
+                    Margin="10"
+                   Source="@drawable/no_backup.png"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+        <Image Grid.Row="0"
+               IsVisible="{Binding IsLoggedIn}"
+                    Margin="10"
+                   Source="@drawable/backup.png"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+        <Image Grid.Row="1"
+                       Margin="10"
+                   Source="@drawable/user_icon.png"
+                    HeightRequest="60"
+                    WidthRequest="60"
+                    HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+        <Label  Grid.Row="2" Text="ĐĂNG NHẬP"
+                        IsVisible="{Binding IsLoggedIn, Converter={StaticResource Inverter}}"
+                         Margin="10"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Start"/>
+        <Label  Grid.Row="2" Text="{Binding UserAccount.Name}"
+                        IsVisible="{Binding IsLoggedIn}"
+                         Margin="10"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Start"/>
+        <Label  Grid.Row="2" Text="Chưa đăng nhập vào tính năng sao lưu dữ liệu."
+                 IsVisible="{Binding IsLoggedIn, Converter={StaticResource Inverter}}"
+                         Margin="10"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="End"
+                    />
+        <Label  Grid.Row="2" Text="{Binding UserAccount.Email}"
+                 IsVisible="{Binding IsLoggedIn}"
+                         Margin="10"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="End"
+                    />
+    </Grid>
+</ContentView>

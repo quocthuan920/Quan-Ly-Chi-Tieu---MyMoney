@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:ModalContentPage xmlns:controls="clr-namespace:MyMoney.Controls"
+                           xmlns="http://xamarin.com/schemas/2014/forms"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                           xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                           xmlns:resources="clr-namespace:MyMoney.Application.Resources"
+                           mc:Ignorable="d"
+                           xmlns:extensions="clr-namespace:MyMoney.Extensions"
+                           xmlns:accounts="clr-namespace:MyMoney.Views.Accounts"
+                           Visual="Material"
+                           x:Class="MyMoney.Views.Accounts.EditAccountPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="15,0,15,0" >
+
+                <Label Style="{StaticResource TextHeadline}"
+                       Text="{Binding SelectedAccountVm.Name, StringFormat={extensions:Translate EditAccountTitle}}" 
+                       HorizontalOptions="Center"/>
+
+                <accounts:ModifyAccountContentView />
+
+                <Label Style="{StaticResource TextBodySecondary}"
+                   Text="{Binding SelectedAccount.CreationTime, StringFormat={extensions:Translate CreationDateTemplateLabel}}" />
+
+                <Label Style="{StaticResource TextBodySecondary}"
+                   Text="{Binding SelectedAccount.ModificationDate, StringFormat={extensions:Translate ModificationDateTemplateLabel}}" />
+
+                <Button x:Name="DeleteAccountButton"
+                    Style="{StaticResource WarningButton}"
+                    Margin="0,12,0,0"
+                    Command="{Binding DeleteCommand}"
+                    CommandParameter="{Binding SelectedAccountVm}"
+                    Text="{x:Static resources:Strings.DeleteLabel}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</controls:ModalContentPage>

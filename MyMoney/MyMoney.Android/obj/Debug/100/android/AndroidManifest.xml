@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.companyname.mymoney" android:installLocation="auto" android:versionCode="1" android:versionName="1.0">
+  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <application android:name="crc64319508858aeac2a5.MainApplication" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:icon="@drawable/icon" android:label="My Money">
+    <activity android:name="crc648316b0a9aa8cfd61.BrowserTabActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:host="auth" android:scheme="msald59bc1c1-1780-4527-8140-d33578591dac" />
+      </intent-filter>
+    </activity>
+    <activity android:name="crc64319508858aeac2a5.MainActivity" android:configChanges="orientation|screenSize|uiMode" android:icon="@drawable/icon" android:label="MyMoney" android:theme="@style/MainTheme" />
+    <activity android:name="crc64319508858aeac2a5.SplashScreen" android:label="MyMoney" android:noHistory="true" android:screenOrientation="portrait" android:theme="@style/Theme.Splash">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name="microsoft.identity.client.AuthenticationActivity" />
+    <activity android:name="crc64ed1888fb4925e3b7.AuthenticationAgentActivity" android:configChanges="orientation|screenSize" />
+    <receiver android:name="crc64c1852205a52d643f.AlarmHandler" android:enabled="true" android:label="Toasts Broadcast Receiver" />
+    <service android:name="crc64396a3fe5f8138e3f.KeepAliveService" />
+    <receiver android:name="crc64a0e0a82d0db9a07d.BatteryBroadcastReceiver" android:enabled="true" android:exported="false" android:label="Essentials Battery Broadcast Receiver" />
+    <receiver android:name="crc64a0e0a82d0db9a07d.EnergySaverBroadcastReceiver" android:enabled="true" android:exported="false" android:label="Essentials Energy Saver Broadcast Receiver" />
+    <receiver android:name="crc64a0e0a82d0db9a07d.ConnectivityBroadcastReceiver" android:enabled="true" android:exported="false" android:label="Essentials Connectivity Broadcast Receiver" />
+    <provider android:name="xamarin.essentials.fileProvider" android:authorities="com.companyname.mymoney.fileProvider" android:exported="false" android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/xamarin_essentials_fileprovider_file_paths" />
+    </provider>
+    <receiver android:name="crc643f46942d9dd1fff9.PowerSaveModeBroadcastReceiver" android:enabled="true" android:exported="false" />
+    <provider android:name="mono.MonoRuntimeProvider" android:authorities="com.companyname.mymoney.mono.MonoRuntimeProvider.__mono_init__" android:exported="false" android:initOrder="1999999999" />
+    <!-- suppress ExportedReceiver -->
+    <receiver android:name="mono.android.Seppuku">
+      <intent-filter>
+        <action android:name="mono.android.intent.action.SEPPUKU" />
+        <category android:name="mono.android.intent.category.SEPPUKU.com.companyname.mymoney" />
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>

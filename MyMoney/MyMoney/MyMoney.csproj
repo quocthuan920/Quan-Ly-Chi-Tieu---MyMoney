@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+		<LangVersion>8.0</LangVersion>
+		<NullableContextOptions>enable</NullableContextOptions>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="6.1.0" />
+		<PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.1" />
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="MediatR" Version="9.0.0" />
+		<PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+		<PackageReference Include="Microsoft.Graph" Version="3.21.0" />
+		<PackageReference Include="Microsoft.Identity.Client" Version="4.24.0" />
+		<PackageReference Include="MvvmLightStd10" Version="5.4.1.2" />
+		<PackageReference Include="NLog" Version="4.7.6" />
+		<PackageReference Include="PCLAppConfig" Version="1.0.1" />
+		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.8" />
+		<PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
+		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+		<PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Controls\FlyoutHeader.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Ui\ViewModels\About\" />
+	  <Folder Include="Views\About\" />
+	</ItemGroup>
+</Project>

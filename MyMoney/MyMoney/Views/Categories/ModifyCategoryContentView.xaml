@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="MyMoney.Views.Categories.ModifyCategoryContentView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:MyMoney.Application.Resources"
+    mc:Ignorable="d">
+
+    <ContentView.Content>
+        <StackLayout>
+            <Image Source="@drawable/categories.png" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center"/>
+            <Entry Placeholder="{x:Static resources:Strings.CategoryNameLabel}" Text="{Binding SelectedCategory.Name}" />
+
+            <Entry Placeholder="{x:Static resources:Strings.NoteLabel}" Text="{Binding SelectedCategory.Note}" />
+
+            <StackLayout CompressedLayout.IsHeadless="True" Orientation="Horizontal">
+                <CheckBox
+                    HorizontalOptions="Start"
+                    IsChecked="{Binding SelectedCategory.RequireNote}"
+                    VerticalOptions="Center" />
+                <Label
+                    Margin="-20,0,0,0"
+                    HorizontalOptions="StartAndExpand"
+                    Text="{x:Static resources:Strings.RequireNoteCheckbox}"
+                    VerticalOptions="Center" />
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
